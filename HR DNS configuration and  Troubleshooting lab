@@ -1,0 +1,197 @@
+# HR Department DNS Configuration & Troubleshooting Lab
+
+## 📌 Project Overview
+
+This project demonstrates the configuration, testing, and troubleshooting of a DNS server in a simulated HR department network using Cisco Packet Tracer.
+
+The lab uses a single local area network (LAN) with one router, one switch, one DNS server, five PCs, and five laptops.
+
+The purpose of this project is to develop practical networking and IT Help Desk troubleshooting skills by configuring DNS, testing name resolution, deliberately creating a DNS failure, identifying the root cause, and restoring service.
+
+---
+
+## 🎯 Objectives
+
+- Configure a basic LAN network.
+- Configure static IP addresses.
+- Configure a DNS server.
+- Create DNS records.
+- Test DNS name resolution.
+- Use `nslookup` to troubleshoot DNS.
+- Use `ping` to verify network connectivity.
+- Identify an incorrect DNS server configuration.
+- Correct the DNS configuration.
+- Verify successful DNS resolution after the fix.
+- Document the incident using ServiceNow.
+
+---
+
+## 🖥️ Network Topology
+
+### Devices
+
+- 1 Router
+- 1 Switch
+- 1 DNS Server
+- 5 PCs
+- 5 Laptops
+
+All devices are connected to the same LAN.
+
+### Network
+
+**Network:** `192.168.10.0/24`
+
+**Subnet Mask:** `255.255.255.0`
+
+**Default Gateway:** `192.168.10.1`
+
+**DNS Server:** `192.168.10.10`
+
+---
+
+## 📋 IP Addressing
+
+| Device | IP Address | Default Gateway | DNS Server |
+|---|---|---|---|
+| Router | 192.168.10.1 | — | — |
+| DNS Server | 192.168.10.10 | 192.168.10.1 | 192.168.10.10 |
+| PC1 | 192.168.10.20 | 192.168.10.1 | 192.168.10.10 |
+| PC2 | 192.168.10.21 | 192.168.10.1 | 192.168.10.10 |
+| PC3 | 192.168.10.22 | 192.168.10.1 | 192.168.10.10 |
+| PC4 | 192.168.10.23 | 192.168.10.1 | 192.168.10.10 |
+| PC5 | 192.168.10.24 | 192.168.10.1 | 192.168.10.10 |
+| Laptop 1 | 192.168.10.30 | 192.168.10.1 | 192.168.10.10 |
+| Laptop 2 | 192.168.10.31 | 192.168.10.1 | 192.168.10.10 |
+| Laptop 3 | 192.168.10.32 | 192.168.10.1 | 192.168.10.10 |
+| Laptop 4 | 192.168.10.33 | 192.168.10.1 | 192.168.10.10 |
+| Laptop 10 | 192.168.10.34 | 192.168.10.1 | 192.168.10.10 |
+
+---
+
+## 🌐 DNS Configuration
+
+The DNS server was configured with the following records:
+
+| DNS Name | IP Address |
+|---|---|
+| isaac.com | 192.168.10.10 |
+| www.isaac.com | 192.168.10.10 |
+
+These records allow network clients to resolve the domain names to the DNS server's IP address.
+
+---
+
+## 🧪 Testing
+
+### Connectivity Testing
+
+The devices were tested using `ping` to verify communication across the LAN.
+
+Successful replies confirmed connectivity to the DNS server.
+
+DNS Testing
+
+DNS name resolution was tested using:
+
+nslookup isaac.com
+
+The DNS server successfully returned:
+
+isaac.com → 192.168.10.10
+
+The following command was also used:
+
+ping isaac.com
+
+Successful replies confirmed that the hostname could be resolved and reached.
+
+🔧 DNS Troubleshooting Exercise
+
+A DNS failure was deliberately introduced on Laptop 10.
+
+The correct DNS server was:
+
+192.168.10.10
+
+The DNS configuration on Laptop 10 was changed incorrectly to:
+
+192.168.10.99
+Initial Test
+
+The following command was executed:
+
+nslookup isaac.com
+
+Result:
+
+DNS request timed out
+🔍 Troubleshooting Process
+
+The problem was isolated using a structured troubleshooting process.
+
+1. Test the Default Gateway
+ping 192.168.10.1
+
+Result:
+
+Reply
+
+This confirmed that Laptop 10 had network connectivity.
+
+2. Test the Actual DNS Server
+ping 192.168.10.10
+
+Result:
+
+Reply
+
+This confirmed that the DNS server was reachable.
+
+3. Check DNS Configuration
+
+The DNS server configured on Laptop 10 was found to be:
+
+192.168.10.99
+
+This was incorrect.
+
+The correct DNS server was:
+
+192.168.10.10
+4. Correct the Configuration
+
+The DNS server address was changed from:
+
+192.168.10.99
+
+to:
+
+192.168.10.10
+5. Verify the Fix
+
+The following command was executed:
+
+nslookup isaac.com
+
+DNS resolution successfully returned the correct IP address.
+
+📝 Root Cause
+
+The root cause of the incident was an incorrect DNS server address configured on Laptop 10.
+
+The laptop was configured to use:
+
+192.168.10.99
+
+instead of the correct DNS server:
+
+192.168.10.10
+✅ Resolution
+
+The DNS server configuration on Laptop 10 was corrected to:
+
+192.168.10.10
+
+DNS resolution was then successfully verified using nslookup.
+
